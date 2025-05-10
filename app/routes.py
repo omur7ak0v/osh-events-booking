@@ -20,9 +20,12 @@ def book_event(event_id):
         )
         db.session.add(booking)
         db.session.commit()
-        return redirect(url_for('main.index'))
+        
+        #перенаправление на страницу бронирований вместо главной
+        return redirect(url_for('main.show_bookings'))
+    
     return render_template('book.html', event=event)
-
+    
 @bp.route('/bookings')
 def show_bookings():
     bookings = Booking.query.options(db.joinedload(Booking.event)).all()
